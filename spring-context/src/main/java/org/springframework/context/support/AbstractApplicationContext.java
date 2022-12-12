@@ -547,9 +547,15 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			StartupStep contextRefresh = this.applicationStartup.start("spring.context.refresh");
 
 			// Prepare this context for refreshing.
+			//为刷新之前作一些准备
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
+			/**
+			 * 这里是创建了一个新的BeanFactoty对像
+			 * 为什么说是新的呢？
+			 * 如果当前已经存在了一个BeanFactoty对像，则会将其销毁然后在创建一个BeanFactory对像
+			 */
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
@@ -635,6 +641,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 		// Validate that all properties marked as required are resolvable:
 		// see ConfigurablePropertyResolver#setRequiredProperties
+		// 校验在环境中是否存在必须存在的属性
 		getEnvironment().validateRequiredProperties();
 
 		// Store pre-refresh ApplicationListeners...
@@ -647,8 +654,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			this.applicationListeners.addAll(this.earlyApplicationListeners);
 		}
 
-		// Allow for the collection of early ApplicationEvents,
-		// to be published once the multicaster is available...
+		// Allow for the collection of early ApplicationEvents,to be published once the multicaster is available...
 		this.earlyApplicationEvents = new LinkedHashSet<>();
 	}
 
@@ -668,7 +674,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see #getBeanFactory()
 	 */
 	protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
+		/**
+		 * 这个方法的作用只是将已经存在的BeanFactory对像销毁，
+		 * 然后创建出一个新的对像，赋值给全局对像
+		 */
 		refreshBeanFactory();
+		/**
+		 * 返回上面方法所创建出来的BeanFactory对像
+		 */
 		return getBeanFactory();
 	}
 

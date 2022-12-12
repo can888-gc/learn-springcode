@@ -139,7 +139,10 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 			throws BeansException {
 
 		super(parent);
-		//设置配置文件的路径
+		/***
+		 * 设置配置文件的路径
+		 * 这个方法中创建了一个Environment对像  StandardEnvironment对像
+		 */
 		setConfigLocations(configLocations);
 		if (refresh) {
 			refresh();

@@ -91,6 +91,9 @@ public class StandardEnvironment extends AbstractEnvironment {
 	 * @see AbstractEnvironment#customizePropertySources(MutablePropertySources)
 	 * @see #getSystemProperties()
 	 * @see #getSystemEnvironment()
+	 *
+	 * 这个方法是在父类AbstractEnvironment类中的构造方法中调用的
+	 * 这个方法的主要作用是将系统属性和系统环境加载到内存中
 	 */
 	@Override
 	protected void customizePropertySources(MutablePropertySources propertySources) {
